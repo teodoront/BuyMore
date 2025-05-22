@@ -1,5 +1,6 @@
 package br.com.neto.orlando.buymore.ui.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -26,27 +27,35 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.neto.orlando.buymore.R
 import br.com.neto.orlando.buymore.ui.theme.Green
 import br.com.neto.orlando.buymore.ui.theme.MyDarkGray
 import br.com.neto.orlando.buymore.ui.theme.MyLightGray
 import br.com.neto.orlando.buymore.ui.theme.Orange
 
 @Composable
-fun StartMenu(onRegisterCustomer: () -> Unit) {
+fun StartMenu(
+    onRegisterCustomer: () -> Unit,
+    onSalesList: () -> Unit,
+    onProductsList: () -> Unit,
+              ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MyLightGray
     ) {
         Box(
-            modifier = Modifier.fillMaxSize()
-            .padding(16.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
 
 
@@ -58,19 +67,46 @@ fun StartMenu(onRegisterCustomer: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 SwipeableMenuCard(
-                    title = "Pedido",
+                    title = "Pedidos",
                     description = "Toque ou deslize",
-                    icon = Icons.Default.ShoppingCart,
-                    onClick = { },
-                    onSwipe = { }
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.ShoppingCart,
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp),
+                            tint = Orange
+                        )},
+                    onClick = { onSalesList() },
+                    onSwipe = { onSalesList() }
                 )
 
                 SwipeableMenuCard(
-                    title = "Cliente",
+                    title = "Clientes",
                     description = "Toque ou deslize",
-                    icon = Icons.Default.Person,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp),
+                            tint = Orange
+                        )},
                     onClick = { onRegisterCustomer()},
                     onSwipe = { onRegisterCustomer()}
+                )
+
+                SwipeableMenuCard(
+                    title = "Produtos",
+                    description = "Toque ou deslize",
+                    icon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.produtos),
+                            contentDescription = null,
+                            modifier = Modifier.size(48.dp),
+                            colorFilter = ColorFilter.tint(Orange)
+                        )
+                    },
+                    onClick = { onProductsList()},
+                    onSwipe = { onProductsList()}
                 )
             }
 
@@ -104,7 +140,7 @@ fun StartMenu(onRegisterCustomer: () -> Unit) {
 fun SwipeableMenuCard(
     title: String,
     description: String,
-    icon: ImageVector,
+    icon: @Composable () -> Unit,
     onClick: () -> Unit,
     onSwipe: () -> Unit
 ) {
@@ -133,7 +169,9 @@ fun SwipeableMenuCard(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(icon, contentDescription = null, tint = Orange, modifier = Modifier.size(34.dp))
+            Box(modifier = Modifier.size(48.dp)) {
+                icon()
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Text(title, fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
@@ -146,5 +184,8 @@ fun SwipeableMenuCard(
 @Preview
 @Composable
 private fun StartMenuPrev() {
-    StartMenu(onRegisterCustomer = {})
+    StartMenu(
+        onRegisterCustomer = {},
+        onSalesList = {},
+        onProductsList = {})
 }

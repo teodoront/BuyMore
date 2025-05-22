@@ -7,8 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.neto.orlando.buymore.ui.screen.ClientsListScreen
 import br.com.neto.orlando.buymore.ui.screen.CustomerRegistration
+import br.com.neto.orlando.buymore.ui.screen.SalesListScreen
 import br.com.neto.orlando.buymore.ui.screen.StartMenu
+import br.com.neto.orlando.buymore.ui.screen.order.ProductsTableListScreen
 
 @Composable
 fun AppNavigation() {
@@ -25,17 +28,43 @@ fun AppNavigation() {
             )
         }
 
-        composable("startMenu") {//tela de login
-            StartMenu(onRegisterCustomer = {
-                navController.navigate("customerRegistration")
-            })
+        composable("startMenu") {
+            StartMenu(
+                onRegisterCustomer = {
+                    navController.navigate("customerRegistration")
+                },
+                onSalesList = {
+                    navController.navigate("salesList")
+                },
+                onProductsList = {
+                    navController.navigate("productsList")
+                }
+            )
         }
         composable("customerRegistration") {//tela de cadastro de cliente
             BackHandler {
                 Log.d("BackHandler", "Voltar pressionado!")
                 navController.popBackStack()
             }
-            CustomerRegistration()
+            ClientsListScreen()
         }
+
+        composable("salesList") {//tela de cadastro de cliente
+            BackHandler {
+                Log.d("BackHandler", "Voltar pressionado!")
+                navController.popBackStack()
+            }
+            SalesListScreen()
+        }
+
+        composable("productsList") {//tela de cadastro de cliente
+            BackHandler {
+                Log.d("BackHandler", "Voltar pressionado!")
+                navController.popBackStack()
+            }
+            ProductsTableListScreen()
+        }
+
+
     }
 }
