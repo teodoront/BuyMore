@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.neto.orlando.buymore.ui.screen.CustomerRegistration
+import br.com.neto.orlando.buymore.ui.screen.SalesListScreen
 import br.com.neto.orlando.buymore.ui.screen.StartMenu
 
 @Composable
@@ -26,10 +27,22 @@ fun AppNavigation() {
         }
 
         composable("startMenu") {//tela de login
-            StartMenu(onRegisterCustomer = {
-                navController.navigate("customerRegistration")
-            })
+            StartMenu(
+                onRegisterCustomer = {
+                    navController.navigate("customerRegistration")
+                },
+                onSalesList = {
+                    navController.navigate("salesList")
+                }
+            )
         }
+        composable("salesList") {
+            BackHandler {
+                navController.popBackStack()
+            }
+            SalesListScreen()
+        }
+
         composable("customerRegistration") {//tela de cadastro de cliente
             BackHandler {
                 Log.d("BackHandler", "Voltar pressionado!")

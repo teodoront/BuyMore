@@ -39,7 +39,10 @@ import br.com.neto.orlando.buymore.ui.theme.MyLightGray
 import br.com.neto.orlando.buymore.ui.theme.Orange
 
 @Composable
-fun StartMenu(onRegisterCustomer: () -> Unit) {
+fun StartMenu(
+    onRegisterCustomer: () -> Unit,
+    onSalesList: () -> Unit
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MyLightGray
@@ -61,8 +64,8 @@ fun StartMenu(onRegisterCustomer: () -> Unit) {
                     title = "Pedido",
                     description = "Toque ou deslize",
                     icon = Icons.Default.ShoppingCart,
-                    onClick = { },
-                    onSwipe = { }
+                    onClick = { onSalesList() },
+                    onSwipe = { onSalesList() }
                 )
 
                 SwipeableMenuCard(
@@ -146,5 +149,5 @@ fun SwipeableMenuCard(
 @Preview
 @Composable
 private fun StartMenuPrev() {
-    StartMenu(onRegisterCustomer = {})
+    StartMenu(onRegisterCustomer = {}, onSalesList = {})
 }
