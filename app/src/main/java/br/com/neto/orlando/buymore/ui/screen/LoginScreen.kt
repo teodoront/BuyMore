@@ -5,24 +5,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.neto.orlando.buymore.viewmodel.LoginViewModel
 import br.com.neto.orlando.buymore.ui.theme.Green
 import br.com.neto.orlando.buymore.ui.theme.Orange
 import br.com.neto.orlando.buymore.ui.theme.MyDarkGray
 
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit) {
+fun LoginScreen(
+    onLoginSuccess: () -> Unit,
+    viewModel: LoginViewModel = viewModel()
+) {
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -44,8 +52,8 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             )
 
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = uiState.email,
+                onValueChange = { viewModel.onEmailChange(it) },
                 label = { Text("Email") },
                 leadingIcon = {
                     Icon(
@@ -73,8 +81,8 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             )
 
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = uiState.password,
+                onValueChange = { viewModel.onPasswordChange(it) },
                 label = { Text("Password") },
                 leadingIcon = {
                     Icon(
@@ -130,5 +138,5 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
 @Preview
 @Composable
 private fun LoginScreenPrev() {
-    LoginScreen(onLoginSuccess = {})
+    LoginScreen(onLoginSuccess = {}, viewModel = LoginViewModel())
 }

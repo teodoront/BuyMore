@@ -16,7 +16,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -24,10 +23,8 @@ import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,24 +37,15 @@ import androidx.compose.ui.unit.sp
 import br.com.neto.orlando.buymore.ui.theme.Green
 import br.com.neto.orlando.buymore.ui.theme.MyDarkGray
 import br.com.neto.orlando.buymore.ui.theme.Orange
+import androidx.lifecycle.viewmodel.compose.viewModel
+import br.com.neto.orlando.buymore.viewmodel.CustomerViewModel
 
 
 @Composable
-fun CustomerRegistration() {
-    var id by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var cpf by remember { mutableStateOf("") }
-    var rg by remember { mutableStateOf("") }
-    var adress by remember { mutableStateOf("") }
-    var compAdress by remember { mutableStateOf("") }
-    var neighborhood by remember { mutableStateOf("") }
-    var cep by remember { mutableStateOf("") }
-    var city by remember { mutableStateOf("") }
-    var state by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var rdSocial by remember { mutableStateOf("") }
-    var emailIsValid by remember { mutableStateOf(true) }
+fun CustomerRegistration(
+    viewModel: CustomerViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
 
 
@@ -94,8 +82,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = id,
-                        onValueChange = { id = it },
+                        value = uiState.id,
+                        onValueChange = { viewModel.onIdChange(it) },
                         label = { Text("Código") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -120,8 +108,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
+                        value = uiState.name,
+                        onValueChange = { viewModel.onNameChange(it) },
                         label = { Text("Nome") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -146,8 +134,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = cpf,
-                        onValueChange = { cpf = it },
+                        value = uiState.cpf,
+                        onValueChange = { viewModel.onCpfChange(it) },
                         label = { Text("CPF/CNPJ:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -168,8 +156,8 @@ fun CustomerRegistration() {
                             .weight(2f)
                     )
                     OutlinedTextField(
-                        value = rg,
-                        onValueChange = { rg = it },
+                        value = uiState.rg,
+                        onValueChange = { viewModel.onRgChange(it) },
                         label = { Text("RG/IE:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -196,8 +184,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = adress,
-                        onValueChange = { adress = it },
+                        value = uiState.adress,
+                        onValueChange = { viewModel.onAdressChange(it) },
                         label = { Text("Endereço:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -222,8 +210,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = compAdress,
-                        onValueChange = { compAdress = it },
+                        value = uiState.compAdress,
+                        onValueChange = { viewModel.onCompAdressChange(it) },
                         label = { Text("Complemento:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -248,8 +236,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = neighborhood,
-                        onValueChange = { neighborhood = it },
+                        value = uiState.neighborhood,
+                        onValueChange = { viewModel.onNeighborhoodChange(it) },
                         label = { Text("Bairro:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -270,8 +258,8 @@ fun CustomerRegistration() {
                             .weight(2f)
                     )
                     OutlinedTextField(
-                        value = cep,
-                        onValueChange = { cep = it },
+                        value = uiState.cep,
+                        onValueChange = { viewModel.onCepChange(it) },
                         label = { Text("CEP:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -299,8 +287,8 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = city,
-                        onValueChange = { city = it },
+                        value = uiState.city,
+                        onValueChange = { viewModel.onCityChange(it) },
                         label = { Text("Cidade:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -321,8 +309,8 @@ fun CustomerRegistration() {
                             .weight(3f)
                     )
                     OutlinedTextField(
-                        value = state,
-                        onValueChange = { state = it },
+                        value = uiState.state,
+                        onValueChange = { viewModel.onStateChange(it) },
                         label = { Text("UF:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -350,9 +338,9 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = formatPhoneNumber(phone),
+                        value = formatPhoneNumber(uiState.phone),
                         onValueChange = { newText ->
-                            phone = newText.filter { it.isDigit() }.take(11)
+                            viewModel.onPhoneChange(newText.filter { it.isDigit() }.take(11))
                         },
                         label = { Text("Fone:") },
                         colors = OutlinedTextFieldDefaults.colors(
@@ -379,12 +367,12 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = email,
+                        value = uiState.email,
                         onValueChange = {
-                            email = it
-                            emailIsValid = isValidEmail(it)
+                            viewModel.onEmailChange(it)
+                            viewModel.setEmailValid(isValidEmail(it))
                         },
-                        isError = !emailIsValid && email.isNotBlank(),
+                        isError = !uiState.emailIsValid && uiState.email.isNotBlank(),
                         label = { Text("E-mail:") },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Green,
@@ -410,9 +398,9 @@ fun CustomerRegistration() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedTextField(
-                        value = rdSocial,
+                        value = uiState.rdSocial,
                         onValueChange = {
-                            rdSocial = it
+                            viewModel.onRdSocialChange(it)
                         },
                         label = { Text("Rede Social:") },
                         colors = OutlinedTextFieldDefaults.colors(
@@ -480,5 +468,5 @@ fun isValidEmail(email: String): Boolean {
 @Preview
 @Composable
 private fun CustomerRegistrationPrev() {
-    CustomerRegistration()
+    CustomerRegistration(viewModel = CustomerViewModel())
 }
