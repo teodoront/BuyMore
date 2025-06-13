@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Store
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -41,7 +42,8 @@ import br.com.neto.orlando.buymore.ui.theme.Orange
 @Composable
 fun StartMenu(
     onRegisterCustomer: () -> Unit,
-    onSalesList: () -> Unit
+    onSalesList: () -> Unit,
+    onProductsList: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -74,6 +76,14 @@ fun StartMenu(
                     icon = Icons.Default.Person,
                     onClick = { onRegisterCustomer()},
                     onSwipe = { onRegisterCustomer()}
+                )
+
+                SwipeableMenuCard(
+                    title = "Produtos",
+                    description = "Toque ou deslize",
+                    icon = Icons.Default.Store,
+                    onClick = { onProductsList() },
+                    onSwipe = { onProductsList() }
                 )
             }
 
@@ -149,5 +159,5 @@ fun SwipeableMenuCard(
 @Preview
 @Composable
 private fun StartMenuPrev() {
-    StartMenu(onRegisterCustomer = {}, onSalesList = {})
+    StartMenu(onRegisterCustomer = {}, onSalesList = {}, onProductsList = {})
 }

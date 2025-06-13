@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.neto.orlando.buymore.ui.screen.CustomerRegistration
 import br.com.neto.orlando.buymore.ui.screen.SalesListScreen
+import br.com.neto.orlando.buymore.ui.screen.ProductsListScreen
 import br.com.neto.orlando.buymore.ui.screen.StartMenu
 
 @Composable
@@ -33,6 +34,9 @@ fun AppNavigation() {
                 },
                 onSalesList = {
                     navController.navigate("salesList")
+                },
+                onProductsList = {
+                    navController.navigate("productList")
                 }
             )
         }
@@ -49,6 +53,13 @@ fun AppNavigation() {
                 navController.popBackStack()
             }
             CustomerRegistration()
+        }
+
+        composable("productList") {
+            BackHandler {
+                navController.popBackStack()
+            }
+            ProductsListScreen()
         }
     }
 }
